@@ -1,0 +1,29 @@
+{
+  "name": "mineveraback",
+  "version": "1.0.0",
+  "description": "backend del proyecto de la lista de compra mas integracion a base de datos",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pedritusz/miNevera-backend.git"
+  },
+  "author": "Pedro Zambrana Ramirez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pedritusz/miNevera-backend/issues"
+  },
+  "homepage": "https://github.com/pedritusz/miNevera-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parse": "^0.1.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.9",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemon": "^2.0.3"
+  }
+}
