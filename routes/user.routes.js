@@ -2,9 +2,9 @@ let express = require('express');
 let app = express()
 let userSchema = require('../schemas/user.schema')
 let bcrypt = require('bcryptjs')
+let checkToken = require('../middlewares/checkToken.mw')
 
-
-app.get('/',( req, res )=>{
+app.get('/',checkToken.checkToken,( req, res )=>{
 
     userSchema.find({},( err , users )=>{
 

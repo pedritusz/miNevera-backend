@@ -8,17 +8,16 @@ let TIMETOKEN =     require('../config/constatants').TIMETOKEN
 
 
 app.post('/',(req,res,next)=>{
-
     let body = req.body 
+    console.log(body)
     if(!req){
         
-        return res.status(402).json({
+        return res.status(404).json({
             ok:false,
             message: 'require body',
         });
 
     };
-
     user.find({email:body.email},(err,userdb)=>{
      //  console.log(/* 'body =>',body, */ 'userDB=>',userdb/* 'body.email=>',body.email */);
         userdb = userdb[0];
@@ -33,10 +32,9 @@ app.post('/',(req,res,next)=>{
             })
 
         };
-
         if(!userdb || userdb === []){
 
-            return res.status(402).json({
+            return res.status(404).json({
          
                 ok:false,
                 message: 'incorrect email or password',

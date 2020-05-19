@@ -1,6 +1,6 @@
 let express = require('express');
 let app = express();
-let users = require('./user.route')
+let users = require('./user.routes')
 let login = require('./login.routes')
 
 
@@ -12,7 +12,7 @@ app.use('/users',users);
 
 app.get('/',(req,res)=>{
     res.status(200).json({
-        ok:'trueee',
+        ok:'true',
     })
 })
 
