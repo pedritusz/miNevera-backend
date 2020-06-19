@@ -31,6 +31,6 @@ mongoose.connection.openUri(mongooUri,(err,res)=>{
 app.use(routes)
 
 
-app.listen(3002 || process.env.PORT,()=>{
-    console.log(`escuchando puerto ${process.env.PORT} `)
+app.listen(3002 || PORT,()=>{
+    console.log(`escuchando puerto ${process.env.PORT}, ==> PORT ${PORT}`)
 })
