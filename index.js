@@ -31,6 +31,6 @@ mongoose.connection.openUri(mongooUri,(err,res)=>{
 app.use(routes)
 
 
-app.listen(3002,()=>{
+app.listen(3002 || 'https://app-mi-nevera-back.herokuapp.com',()=>{
     console.log('escuchando puerto 3002')
 })
