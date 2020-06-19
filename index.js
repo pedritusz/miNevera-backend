@@ -22,7 +22,7 @@ app.use(bodyParse.urlencoded({extended:false}));
 app.use(bodyParse.json());
 //mongose config
 mongoose.connection.openUri(mongooUri,(err,res)=>{
-    if(err) console.log('error')
+    if(err) console.log('error al conectar con mongo')
     if(res) console.log('connect')
 })
 
