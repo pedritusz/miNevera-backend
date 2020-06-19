@@ -1,10 +1,10 @@
 let express = require('express');
 let app = express();
-let bcrypt = require('bcryptjs');
-let jwt = require('jsonwebtoken');
+let bcrypt = require('bcryptjs'); // encripta y compara contraseña
+let jwt = require('jsonwebtoken'); // crea token y lo descifra
 let user = require('../schemas/user.schema');
-let SEED = require('../config/constatants').SEED;
-let TIMETOKEN =     require('../config/constatants').TIMETOKEN
+let SEED = require('../config/constatants').SEED;// palabra secreta para generar token
+let TIMETOKEN =     require('../config/constatants').TIMETOKEN // tiempo que tarda en expirar el token
 
 
 app.post('/',(req,res,next)=>{
@@ -19,7 +19,6 @@ app.post('/',(req,res,next)=>{
 
     };
     user.find({email:body.email},(err,userdb)=>{
-     //  console.log(/* 'body =>',body, */ 'userDB=>',userdb/* 'body.email=>',body.email */);
         userdb = userdb[0];
         if(err){
 
