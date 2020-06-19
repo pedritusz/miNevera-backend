@@ -2,7 +2,7 @@ let express = require('express');
 let mongoose = require('mongoose');
 let routes = require('./routes/index.routes');
 let bodyParse = require('body-parser');
-let mongooUri = require('./config/constatants').MONGO_URI;
+let mongooUri = require('./config/constatants').MONGOURI;
 
 let app = express();
 
