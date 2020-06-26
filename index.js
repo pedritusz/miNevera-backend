@@ -30,7 +30,8 @@ mongoose.connection.openUri(mongooUri,(err,res)=>{
 
 app.use(routes)
 
-
-app.listen(process.env.PORT,()=>{//3200 en local
-    console.log(`escuchando puerto ${process.env.PORT}`)
+let localhost = 3200;
+let herokuPort = process.env.PORT;
+app.listen(localhost,()=>{//3200 en local,process.env.PORT
+    console.log(`escuchando puerto ${localhost}`)
 })

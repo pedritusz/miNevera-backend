@@ -7,7 +7,7 @@ let SEED = require('../config/constatants').SEED;// palabra secreta para generar
 let TIMETOKEN =     require('../config/constatants').TIMETOKEN // tiempo que tarda en expirar el token
 
 
-app.post('/',(req,res,next)=>{
+app.post('/',(req,res)=>{
     let body = req.body 
     console.log(body)
     if(!req){

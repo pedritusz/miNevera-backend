@@ -4,9 +4,9 @@ let userSchema = require('../schemas/user.schema')
 let bcrypt = require('bcryptjs')
 let checkToken = require('../middlewares/checkToken.mw')
 
-app.get('/', checkToken.checkToken, (req, res) => {
-
-    userSchema.find({}, (err, users) => {
+app.get('/', (req, res) => {
+let user = req.query.user;
+    userSchema.find({_id : user}, (err, users) => {
 
         if (err) {
 
