@@ -2,7 +2,6 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let typeProductEnum = require('../enums/type-of-product.enum').TypeProductsEnum
 let unitMesurement = require('../enums/unit-of-mesurement.enum').unitMesurement;
-let uniqueValidator =require('mongoose-unique-validator')
 
 let productSchema = new Schema({
     name:{type:String,required:[true,'the name of product is required']},
@@ -18,5 +17,4 @@ let productSchema = new Schema({
 
 })
 
-productSchema.plugin(uniqueValidator,{message:'{PATH} already exist',ok:false});
 module.exports = mongoose.model('product',productSchema);

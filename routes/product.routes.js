@@ -5,7 +5,7 @@ let checkToken = require('../middlewares/checkToken.mw');
 let userSchema = require('../schemas/user.schema')
 
 app.get('/',(req, res) => {
-    let userQuery = req.query.user || req.user;
+    let userQuery = req.user;
 
 //comprovar si existe el usuario que hace la peticion
     userSchema.find({_id : userQuery}, (err, user) => {
@@ -25,7 +25,7 @@ app.get('/',(req, res) => {
         }
     })
 // pedir todos los productos del usuario
-    productSchema.find({ user : userQuery }, (err, products) => {
+    productSchema.find(/* { user : userQuery } */ (err, products) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
@@ -33,7 +33,7 @@ app.get('/',(req, res) => {
             })
 
         }
-
+console.log(products)
         res.status(200).json({
             ok: true,
             products
