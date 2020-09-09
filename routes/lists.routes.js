@@ -3,13 +3,12 @@ let app = express();
 let listSchema = require('../schemas/list.schemas.js')
 let productSchema = require('../schemas/product.schema.js')
 let idProductSchema = require('../schemas/list.schemas.js').idProduct
+let checkToken = require('../middlewares/checkToken.mw')
 
 
-app.get('/', (req, res) => {
-
-    user = req.query.user || req.user._id;
-
-
+app.get('/', checkToken.checkToken, (req, res) => {
+    let user = req.user.user._id;
+    let userList = [];
 
     if (!req) {
         res.status(400).json({
@@ -18,16 +17,24 @@ app.get('/', (req, res) => {
         })
     }
 
-    listSchema.find({ user: user }, (err, lists) => {
+    listSchema.find((err, lists) => {
         if (err) {
             return res.status(500).json({
                 ok: false,
                 err
             })
         }
+        lists.forEach((list)=>{
+            console.log(list.user == user)
+            if(list.user == user){
+                userList.push(list)
+            } 
+        })
+         
         return res.status(200).json({
             ok: true,
-            lists
+            userList,
+        
 
         })
     })
@@ -37,64 +44,41 @@ app.get('/', (req, res) => {
 
 })
 
-app.post('/', (req, res) => {
+app.post('/', checkToken.checkToken, (req, res) => {
+console.log(req.body)
     let body = req.body;
-    let queryProducts = body.products
-    let newList = new listSchema( {
+    let queryProducts = body.products.ids
+    let newList = new listSchema({
         name: body.name,
         user: body.user,
-        products:[],
+        products: queryProducts,
         shoppingCart: body.shoppinCart
     })
-    queryProducts.forEach(id =>{
-        newList.products.push(id)
-    })
-    console.log('productos =>',body.products);
-    
-    if (queryProducts !== []) {
+    if (queryProducts.length > 0) {
 
         queryProducts.forEach((queryIdProduct) => {
-            productSchema.find({ _id: queryIdProduct.id }, (err, dbProduct) => {
-                if (err) {
-
-                    if (err.name === 'CastError') {
-                        err.message = 'there are products that do not exist in your fridge'
-                    }
-                    res.status(500).json({
+            productSchema.find({ _id: queryIdProduct }, (err, dbProduct) => {
+                if (err) {                    
+                    return  res.status(500).json({
                         ok: false,
-                        err
+                        
+                        message: 'error al buscar producto '+ queryIdProduct
                     })
                 }
-
+               
             })
         });
-
     }
-    //console.log('products...................................................')
-    listSchema.findOne({name: body.name},(err, listNameExist)=>{
-        if(err){
-            return res.status(500).json({
-                ok:false,
-                err
-            })
-        }
-        if(listNameExist !== []){
-            return res.status(500).json({
-                ok:false,
-                message:'ya existe esta lista'
-            })
-        }
-    })
-    newList.save(newList, (err, list) => {
+
+    newList.save( (err, list) => {
         if (err) {
-            console.log(err)
-            res.status(500).json({
+            return res.status(500).json({
                 ok: false,
-                err
+                message: 'ya existe esta lista'
             })
-            
+
         }
-        res.status(201).json({
+        return res.status(201).json({
             ok: true,
             list
         })
@@ -102,15 +86,16 @@ app.post('/', (req, res) => {
 
 
 
+
 })
 
-app.delete('/',(req,res)=>{
+app.delete('/', (req, res) => {
     let body = req.body
-    
-    listSchema.deleteOne({_id:body.list},(err,list)=>{
-        if(err){
+
+    listSchema.deleteOne({ _id: body.list }, (err, list) => {
+        if (err) {
             res.status(500).json({
-                ok:false,
+                ok: false,
                 err
             })
             if (err.name === 'CastError') {
@@ -118,8 +103,8 @@ app.delete('/',(req,res)=>{
             }
         }
         res.status(200).json({
-            ok:true,
-            message:`${list.name} is deleted`
+            ok: true,
+            message: `${list.name} is deleted`
         })
     })
 

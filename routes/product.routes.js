@@ -33,7 +33,7 @@ app.get('/',(req, res) => {
             })
 
         }
-console.log(products)
+        
         res.status(200).json({
             ok: true,
             products

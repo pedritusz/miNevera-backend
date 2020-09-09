@@ -5,7 +5,6 @@ let userSchema = require('../schemas/list.schemas.js')
 exports.checkToken =  function(req,res,next){
 
     var token = req.query.token;
-
     jwt.verify(token,SEED,(err, decoded)=>{
 
         if(err){
@@ -17,7 +16,7 @@ exports.checkToken =  function(req,res,next){
         }
 
         
-        Console.log('verificar contenido de decoded en el middleware',decoded);
+        //Console.log('verificar contenido de decoded en el middleware',decoded);
         userSchema.findById(decoded._id,(err,user)=>{
             if(err){
                 console.log('error desde midelware')
@@ -35,7 +34,7 @@ exports.checkToken =  function(req,res,next){
             }
         })
         req.user = decoded;
-        
+        console.log('decoded',decoded.user)
         next()
     })
 
