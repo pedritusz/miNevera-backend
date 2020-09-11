@@ -8,7 +8,9 @@ let listSchema = new schema({
     products:[
         {type:mongoose.SchemaTypes.ObjectId,ref:'products'}
     ],
-    shoppingCart:{type:[],required:false,default:[]}
+    shoppingCart:{type:[],required:false,default:[]},
+    createData : {type:Date,required:false, default: new Date()}
+
 })
 
 
